@@ -11,12 +11,20 @@ function SendNotify(message, type, duration, title)
         duration = settings["defaultDuration"]
     end
 
+    local notifyTypeConfig = settings["types"][type] or settings["types"]["info"]
+    local finalTitle = title or notifyTypeConfig.title
+
     SendNUIMessage({
         type = "notify",
         message = message,
         notifyType = type,
         duration = duration,
-        title = title
+        title = finalTitle,
+        config = {
+            icon = notifyTypeConfig.icon,
+            styling = notifyTypeConfig.styling,
+            defaultDuration = settings["defaultDuration"]
+        }
     })
 end
 
@@ -27,7 +35,6 @@ AddEventHandler("sharky_notify:sendNotify", function(message, type, duration, ti
     SendNotify(message, type, duration, title)
 end)
 
-
 if settings["enableTestCommand"] then
     RegisterCommand('testNotifyType', function(source, args)
         SendNotify(
@@ -35,12 +42,3 @@ if settings["enableTestCommand"] then
             args[1], 5000)
     end, false)
 end
-
-
-AddEventHandler('onResourceStart', function()
-    Wait(1000)
-    SendNUIMessage({
-        type = "config",
-        settings = settings
-    })
-end)
