@@ -7,10 +7,11 @@ client_script 'client.lua'
 
 shared_script 'settings.lua'
 
-ui_page 'ui/index.html'
+ui_page 'web/dist/index.html'
 
 files {
-    'ui/index.html',
-    'ui/style.css',
-    'ui/script.js'
+    'web/dist/index.html',
+    'web/dist/assets/*.js',
+    'web/dist/assets/*.css',
+    'web/dist/click.mp3'
 }

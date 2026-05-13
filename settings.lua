@@ -1,7 +1,7 @@
 settings = {}
 
 settings["defaultDuration"] = 5000
-settings["position"] = "top"
+settings["position"] = "top-right"
 settings["enableTestCommand"] = true
 
 settings["types"] = {
