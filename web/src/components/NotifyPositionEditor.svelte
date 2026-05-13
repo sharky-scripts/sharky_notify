@@ -63,11 +63,7 @@
 
 {#if $positionEditorVisible}
   <div class="fixed inset-0 z-[10000]" transition:fade={{ duration: 200 }}>
-    <div
-      class="absolute inset-0 bg-black/60"
-      on:click={close}
-      aria-hidden="true"
-    ></div>
+    <div class="absolute inset-0 bg-black/60"></div>
 
     <div
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-10"
@@ -81,17 +77,19 @@
 
       <div class="flex justify-center gap-2 mt-5 pointer-events-auto">
         <button
-          class="px-5 py-2 rounded-lg text-[0.75rem] font-semibold tracking-wide
-                 border border-white/[0.08] bg-white/[0.04] text-white/60
-                 hover:bg-white/[0.08] hover:text-white/80 transition-all duration-200"
+          class="px-5 py-2 rounded-md text-[0.75rem] font-semibold tracking-wide
+                 border border-white/[0.08] bg-white/[0.04] text-white/50
+                 hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400
+                 transition-all duration-200"
           on:click={close}
         >
+          <i class="fas fa-times mr-1.5"></i>
           Bezárás
         </button>
         <button
-          class="px-5 py-2 rounded-lg text-[0.75rem] font-semibold tracking-wide
-                 bg-[#3498db] text-white
-                 hover:bg-[#2980b9] hover:shadow-lg hover:shadow-[#3498db]/20
+          class="px-5 py-2 rounded-md text-[0.75rem] font-semibold tracking-wide
+                 border border-[#3498db]/30 bg-[#3498db]/15 text-[#3498db]
+                 hover:bg-[#3498db]/25 hover:border-[#3498db]/50 hover:shadow-lg hover:shadow-[#3498db]/10
                  transition-all duration-200"
           on:click={save}
         >

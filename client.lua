@@ -1,17 +1,17 @@
 local Notify = {
 
-    SendNotify = function(message, type, duration, title)
+    sendNotify = function(message, type, duration, title)
         if type == nil then
             type = "info"
         end
-    
+
         if duration == nil then
             duration = settings["defaultDuration"]
         end
-    
+
         local notifyTypeConfig = settings["types"][type] or settings["types"]["info"]
         local finalTitle = title or notifyTypeConfig.title
-    
+
         SendNUIMessage({
             type = "notify",
             message = message,
@@ -25,75 +25,75 @@ local Notify = {
             }
         })
     end,
-    
-    OpenPositionEditor = function()
+
+    loadPosition = function(pos)
+        SendNUIMessage({
+            type = "setPosition",
+            position = pos
+        })
+    end,
+
+    savePosition = function(position)
+        settings["position"] = position
+        TriggerServerEvent("sharky_notify:savePosition", position)
+        SendNUIMessage({
+            type = "setPosition",
+            position = position
+        })
+    end,
+
+    openPositionEditor = function()
         SetNuiFocus(true, true)
         SendNUIMessage({
             type = "openPositionEditor"
         })
     end,
 
-    ClosePositionEditor = function()
+    closePositionEditor = function()
         SetNuiFocus(false, false)
-        SendNUIMessage({
-            type = "closePositionEditor"
-        })
-    end,
-
-    savePosition = function(position)
-        TriggerServerEvent("sharky_notify:savePosition", position)
-        SendNUIMessage({
-            type = "savePosition",
-            position = position
-        })
     end,
 }
 
 
 RegisterNetEvent("sharky_notify:sendNotify")
 AddEventHandler("sharky_notify:sendNotify", function(message, type, duration, title)
-    Notify.SendNotify(message, type, duration, title)
+    Notify.sendNotify(message, type, duration, title)
 end)
 
-function OpenPositionEditor()
-    SetNuiFocus(true, true)
-    SendNUIMessage({
-        type = "openPositionEditor"
-    })
-end
+RegisterNetEvent("sharky_notify:loadPosition")
+AddEventHandler("sharky_notify:loadPosition", function(pos)
+    Notify.loadPosition(pos)
+end)
 
-exports("OpenPositionEditor", OpenPositionEditor)
+RegisterNUICallback("requestPosition", function(data, cb)
+    TriggerServerEvent("sharky_notify:requestPosition")
+    cb("ok")
+end)
 
 RegisterNUICallback("savePosition", function(data, cb)
     if data.position then
-        settings["position"] = data.position
-        SendNUIMessage({
-            type = "setPosition",
-            position = data.position
-        })
+        Notify.savePosition(data.position)
     end
-    SetNuiFocus(false, false)
+    Notify.closePositionEditor()
     cb("ok")
 end)
 
 RegisterNUICallback("closePositionEditor", function(data, cb)
-    SetNuiFocus(false, false)
+    Notify.closePositionEditor()
     cb("ok")
 end)
 
 RegisterCommand('notifyposition', function()
-    OpenPositionEditor()
+    Notify.openPositionEditor()
 end, false)
 
 if settings["enableTestCommand"] then
     RegisterCommand('testNotifyType', function(source, args)
-        SendNotify(
+        Notify.sendNotify(
             "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
             args[1], 5000)
     end, false)
-
-    
 end
 
-
-exports("Notify", Notify.SendNotify)
+exports("OpenPositionEditor", Notify.openPositionEditor)
+exports("Notify", Notify.sendNotify)

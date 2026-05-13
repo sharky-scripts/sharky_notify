@@ -3,6 +3,7 @@ settings = {}
 settings["defaultDuration"] = 5000
 settings["position"] = "top-right"
 settings["enableTestCommand"] = true
+settings["debug"] = false
 
 settings["types"] = {
     ["info"] = {
@@ -12,6 +13,15 @@ settings["types"] = {
             background = "#202727e6",
             text_color = "#3498db",
             icon_color = "#3498db"
+        }
+    },
+    ["admin"] = {
+        icon = "fas fa-user-shield",
+        title = "Admin",
+        styling = {
+            background = "#202727e6",
+            text_color = "#ff0000",
+            icon_color = "#ff0000"
         }
     },
     ["error"] = {

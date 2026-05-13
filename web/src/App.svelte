@@ -6,11 +6,14 @@
     positionEditorVisible,
     addNotification,
   } from "./store.js";
+  import { postNui } from "./lib/nui.js";
   import Notify from "./components/Notify.svelte";
   import NotifyPositionEditor from "./components/NotifyPositionEditor.svelte";
 
   onMount(() => {
     window.addEventListener("message", handleMessage);
+
+    postNui("requestPosition").catch(() => {});
 
     if (import.meta.env.DEV) {
       setTimeout(() => {

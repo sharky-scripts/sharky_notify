@@ -4,6 +4,7 @@ author 'Sharky | Cs0ng0r'
 description 'simple notify system'
 
 client_script 'client.lua'
+server_script 'server.lua'
 
 shared_script 'settings.lua'
 

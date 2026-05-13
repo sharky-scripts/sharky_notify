@@ -51,9 +51,7 @@
 >
   {#each visibleNotifications as notif (notif.id)}
     <div
-      class="pointer-events-auto w-[16rem] rounded-md shadow-2xl overflow-hidden backdrop-blur-sm
-             cursor-pointer transition-transform duration-150
-             hover:scale-[1.02] active:scale-[0.98] flex"
+      class="pointer-events-auto w-[16rem] rounded-md shadow-2xl overflow-hidden transition-transform duration-150 active:scale-[0.98] flex"
       class:flex-row-reverse={barOnRight}
       class:flex-col={isCenter}
       style="background: {notif.styling.background};"

@@ -2,7 +2,7 @@ import { writable, derived } from "svelte/store";
 
 export const notifications = writable([]);
 export const position = writable("top-right");
-export const positionEditorVisible = writable(true);
+export const positionEditorVisible = writable(false);
 
 let idCounter = 0;
 
