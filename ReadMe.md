@@ -6,4 +6,4 @@ Egy szimpla notify rendszer FiveM szerverek számára.
 
 
 <img src="assets/notify.png">
-<img src="assets/notify2.png>
+<img src="assets/notify2.png">
